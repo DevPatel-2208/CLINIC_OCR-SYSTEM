@@ -1,0 +1,31 @@
+[build]
+  base = "client"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # The frontend calls "/api" (relative). Netlify proxies it to Render below, so
+  # auth cookies stay same-origin and no CORS setup is needed.
+  # Alternative: set VITE_API_URL=https://your-server.onrender.com/api in the
+  # Netlify UI and delete the redirects below.
+
+# Proxy API calls to the Render backend (same-origin cookies preserved).
+[[redirects]]
+  from = "/api/*"
+  to = "https://your-server.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# Proxy uploaded prescription/document images served by the backend.
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://your-server.onrender.com/uploads/:splat"
+  status = 200
+  force = true
+
+# SPA fallback: all client routes must resolve to index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

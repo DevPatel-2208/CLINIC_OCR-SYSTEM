@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+coverage/
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+uploads/
+ai-service/uploads/
+temp/
+.tools/
